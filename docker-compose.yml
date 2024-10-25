@@ -8,8 +8,9 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    depends_on:
-      - db
+      - sqlite_data:/app  # Mount the entire directory for SQLite database file
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./npi.db  # Set the environment variable
 
   frontend:
     build: ./frontend
@@ -19,14 +20,5 @@ services:
     environment:
       - REACT_APP_BACKEND_URL=http://localhost:8000
 
-  db:
-    image: "postgres:13"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: npi_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
 volumes:
-  postgres_data:
+  sqlite_data:  

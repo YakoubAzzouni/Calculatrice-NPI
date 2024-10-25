@@ -43,7 +43,7 @@ async def calculate(expression: NPIExpression, db: AsyncSession = Depends(get_db
 @app.get("/export_csv")
 async def export_csv(db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Operation))
-    operations = result.scalars().all()
+    operations = result.scalars().all() # to make sure that only the scalar values (like individual rows) are returned
     with open("operations.csv", mode="w", newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["ID", "Expression", "Result"])

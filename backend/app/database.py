@@ -6,7 +6,7 @@ from app.models import Base
 DATABASE_URL = "sqlite+aiosqlite:///./npi.db"
 
 engine = create_async_engine(DATABASE_URL, future=True, echo=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession) # create session
 
 async def init_db():
     async with engine.begin() as conn:
